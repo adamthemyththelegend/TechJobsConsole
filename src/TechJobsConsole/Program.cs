@@ -64,20 +64,36 @@ namespace TechJobsConsole
                     if (columnChoice.Equals("all"))
                     {
                         List<Dictionary<string, string>> searchAll = JobData.FindByValue(searchTerm);
-                        foreach (Dictionary<string, string> list in searchAll)
+                        bool isEmpty = (searchAll.Count == 0);
+                        if (isEmpty == true)
                         {
-                            Console.WriteLine("\n*****");
-                            foreach (KeyValuePair<string, string> item in list)
+                            Console.WriteLine("\n*****\nNo results\n*****");
+                        }
+                        else
+                        {
+                            foreach (Dictionary<string, string> list in searchAll)
                             {
-                                Console.WriteLine("{0}: {1}", item.Key, item.Value);
+                                Console.WriteLine("\n*****");
+                                foreach (KeyValuePair<string, string> item in list)
+                                {
+                                    Console.WriteLine("{0}: {1}", item.Key, item.Value);
+                                }
+                                Console.WriteLine("*****");
                             }
-                            Console.WriteLine("*****");
                         }
                     }
                     else
                     {
                         searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
-                        PrintJobs(searchResults);
+                        bool isEmpty = (searchResults.Count == 0);
+                        if (isEmpty == true)
+                        {
+                            Console.WriteLine("\n*****\nNo results\n*****");
+                        }
+                        else
+                        {
+                            PrintJobs(searchResults);
+                        }
                     }
                 }
             }
